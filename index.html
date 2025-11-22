@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Day College — School Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+  </head>
+  <body class="bg-[#F9F4E3] text-gray-800">
+    <!-- Profile Header -->
+    <div class="bg-white shadow-md">
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row items-center p-6 space-y-4 md:space-y-0 md:space-x-6"
+      >
+        <img
+          src="img/newdaylogo.png"
+          alt="New Day College Logo"
+          class="h-24 w-24 object-contain"
+        />
+        <div class="flex-1">
+          <h1 class="text-3xl font-bold text-blue-900">New Day College</h1>
+          <p class="text-gray-700">
+            Secondary School • Ikosi Ketu, Lagos, Nigeria
+          </p>
+          <p class="text-gray-600">
+            5 Ayodele Awodeji St, Ikosi Ketu, Lagos 105102
+          </p>
+        </div>
+        <div class="text-right">
+          <a
+            href="mailto:info@newdaycollege.sch.ng"
+            class="text-blue-700 hover:underline block"
+            >info@newdaycollege.sch.ng</a
+          >
+          <p class="text-gray-700">+234 80 1234 5678</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVBAR -->
+<nav class="bg-blue-50 shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <!-- Brand / Home -->
+    <a href="index.html" class="flex items-center space-x-2">
+      <span class="text-blue-900 font-bold text-lg tracking-wide">
+        New Day College
+      </span>
+    </a>
+
+    <!-- Desktop Links -->
+    <div class="hidden md:flex items-center space-x-6 text-blue-800 font-medium">
+      <a href="index.html" class="py-1 hover:underline">Home</a>
+     
+      <a href="/academics.html" class="py-1 hover:underline">Academics</a>
+
+
+       <a href="about.html" class="py-1 hover:underline">About us</a>
+      <a href="contact.html" class="py-1 hover:underline">Contact us</a>
+    </div>
+
+    <!-- Desktop Admissions Button -->
+    <a
+      href="admissions.html"
+      class="hidden md:inline-flex px-5 py-2 rounded-full text-white font-semibold
+             bg-gradient-to-r from-blue-600 to-blue-800
+             shadow-md hover:shadow-lg transition-all duration-300
+             animate-pulse-slow"
+    >
+      Apply Now
+    </a>
+
+    <!-- Mobile Hamburger -->
+    <button
+      id="nav-toggle"
+      class="md:hidden flex flex-col justify-center items-center w-9 h-9 rounded-full
+             border border-blue-200 text-blue-800 bg-white shadow-sm
+             transition-all duration-300"
+      aria-label="Toggle navigation"
+    >
+      <span
+        class="hamburger-line w-5 h-0.5 bg-blue-800 mb-1 transition-all duration-300"
+      ></span>
+      <span
+        class="hamburger-line w-5 h-0.5 bg-blue-800 mb-1 transition-all duration-300"
+      ></span>
+      <span
+        class="hamburger-line w-5 h-0.5 bg-blue-800 transition-all duration-300"
+      ></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden max-h-0 overflow-hidden transition-all duration-300 bg-blue-50"
+  >
+    <div class="max-w-6xl mx-auto px-4 pb-3 pt-1 flex flex-col space-y-2 text-blue-800 font-medium">
+      <a href="index.html" class="py-1 hover:underline">Home</a>
+     
+      <a href="/academics.html" class="py-1 hover:underline">Academics</a>
+
+
+       <a href="about.html" class="py-1 hover:underline">About us</a>
+      <a href="contact.html" class="py-1 hover:underline">Contact us</a>
+
+      <a
+        href="admissions.html"
+        class="mt-2 inline-flex items-center justify-center px-5 py-2 rounded-full 
+               text-white font-semibold bg-gradient-to-r from-blue-600 to-blue-800
+               shadow-md hover:shadow-lg transition-all duration-300 animate-pulse-slow"
+      >
+        Apply Now 
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Styles for button animation + hamburger -->
+<style>
+  @keyframes pulseSlow {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(37,99,235,0.3); }
+    50% { transform: scale(1.05); box-shadow: 0 0 18px rgba(37,99,235,0.4); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(37,99,235,0.3); }
+  }
+  .animate-pulse-slow {
+    animation: pulseSlow 2.4s infinite ease-in-out;
+  }
+
+  /* Hamburger to X animation */
+  #nav-toggle.open .hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  #nav-toggle.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  #nav-toggle.open .hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+</style>
+
+<!-- Tiny JS for toggling the mobile menu -->
+<script>
+  const navToggle = document.getElementById("nav-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  navToggle.addEventListener("click", () => {
+    const isOpen = navToggle.classList.toggle("open");
+    if (isOpen) {
+      mobileMenu.classList.remove("max-h-0");
+      mobileMenu.classList.add("max-h-96");
+    } else {
+      mobileMenu.classList.remove("max-h-96");
+      mobileMenu.classList.add("max-h-0");
+    }
+  });
+</script>
+
+
+<style>
+ 
+
+  /* Button pulse / float */
+  @keyframes heroBtnFloat {
+    0%   { transform: translateY(0); box-shadow: 0 10px 20px rgba(220,38,38,0.35); }
+    50%  { transform: translateY(-4px); box-shadow: 0 18px 30px rgba(220,38,38,0.45); }
+    100% { transform: translateY(0); box-shadow: 0 10px 20px rgba(220,38,38,0.35); }
+  }
+
+  .hero-btn-animated {
+    animation: heroBtnFloat 2.4s ease-in-out infinite;
+    background-image: linear-gradient(135deg, #dc2626, #fb7185);
+  }
+
+  .hero-btn-animated:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(220,38,38,0.55);
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const target = document.getElementById("hero-typed");
+    const text =
+      "Integrity and Excellence, Discipline and Leadership";
+    const speed = 60; // typing speed in ms per character
+
+    let index = 0;
+
+    function type() {
+      if (!target) return;
+      if (index <= text.length) {
+        target.textContent = text.slice(0, index);
+        index++;
+        setTimeout(type, speed);
+      } else {
+        target.classList.add("caret");
+      }
+    }
+
+    type();
+  });
+</script>
+
+
+
+
+    <!-- Main Profile Content -->
+    <main class="max-w-6xl mx-auto p-6 space-y-8">
+
+   <section
+  class="relative w-full h-[600px] md:h-[500px] overflow-hidden shadow-md"
+>
+  <!-- Background -->
+  <img
+    src="img/hero-classroom.jpg"
+    alt="New Day College students in class"
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
+
+  <!-- Content -->
+  <div
+    class="relative z-10 h-full max-w-5xl mx-auto px-6 flex flex-col justify-center"
+  >
+    <div class="max-w-3xl translate-y-10">
+      <!-- Small label -->
+      <p
+        class="text-sm md:text-base text-blue-100 uppercase tracking-[0.25em] mb-4 font-semibold"
+      >
+        New Day College • Ikosi Ketu
+      </p>
+
+      <!-- Typing Text -->
+      <h1
+        class="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg"
+      >
+        <span id="hero-typed" class="caret"></span>
+      </h1>
+
+      <!-- Subtext -->
+      <p
+        class="text-base md:text-xl text-slate-100 font-semibold mb-7 max-w-2xl leading-relaxed"
+      >
+        Welcome to a value-driven citadel of learning where we nurture students
+        who shine brightly in academics, talent and character.
+      </p>
+
+      <!-- Buttons -->
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="admissions.html"
+          class="hero-btn-animated inline-flex items-center justify-center px-7 py-3 
+                 rounded-full text-white text-base font-bold shadow-xl 
+                 transition-transform duration-300"
+        >
+          Apply now
+        </a>
+
+        <a
+          href="about.html"
+          class="inline-flex items-center justify-center px-7 py-3 rounded-full 
+                 border border-white text-white text-base font-bold 
+                 bg-white/10 hover:bg-white/20 transition shadow-lg"
+        >
+          Learn more about us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <!-- About Section -->
+    
+
+    <!-- ===== MAIN CONTENT ===== -->
+  
+      <!-- ABOUT SECTION -->
+      <section id="about" class="mb-12 md:mb-16">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <!-- Text -->
+          <div class="fade-in">
+            <h2 class="text-2xl md:text-3xl font-semibold text-blue-900 mb-3">
+              About New Day College
+            </h2>
+            <p class="text-gray-700 leading-relaxed mb-3">
+              New Day College is a distinguished secondary school located in the
+              heart of Ikosi Ketu, Lagos. We are dedicated to providing a
+              holistic education that emphasizes academic excellence, moral
+              discipline and character formation.
+            </p>
+            <p class="text-gray-700 leading-relaxed mb-3">
+              Our mission is to develop students who are intellectually
+              competent, emotionally balanced and socially responsible. We blend
+              the Nigerian curriculum with modern teaching methods, rich
+              co-curricular activities and a supportive environment that helps
+              every learner discover their strengths.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+              At New Day College, we partner with parents to raise young people
+              who can think critically, communicate clearly and live out strong
+              values in a changing world.
+            </p>
+          </div>
+
+          <!-- Image -->
+          <div class="fade-in-delay-1">
+            <div
+              class="overflow-hidden rounded-xl shadow-lg bg-white border border-slate-100"
+            >
+              <img
+                src="img/about-students-main.jpg"
+                alt="Students in classroom"
+                class="w-full h-64 md:h-80 object-cover hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HIGHLIGHTS / FEATURES -->
+      <section
+        id="facilities"
+        class="mb-12 md:mb-16 bg-[#14552A] text-white rounded-2xl py-8 md:py-10 px-4 md:px-8 fade-in-delay-2"
+      >
+        <div class="text-center mb-6">
+          <h2 class="text-2xl md:text-3xl font-semibold mb-2">
+            Why families trust New Day College
+          </h2>
+          <p class="text-sm md:text-base text-red-100 max-w-2xl mx-auto">
+            We combine committed teachers, a safe environment and engaging
+            programmes to give every child the opportunity to grow and excel.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-5 text-sm">
+          <div class="flex flex-col items-center text-center space-y-2">
+            <div
+              class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+            >
+              🎓
+            </div>
+            <h3 class="font-semibold">Highly qualified staff</h3>
+            <p class="text-red-100">
+              Dedicated, experienced teachers committed to nurturing each
+              learner.
+            </p>
+          </div>
+
+          <div class="flex flex-col items-center text-center space-y-2">
+            <div
+              class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+            >
+              🏫
+            </div>
+            <h3 class="font-semibold">Modern facilities</h3>
+            <p class="text-red-100">
+              Well-equipped classrooms and learning spaces that support active
+              learning.
+            </p>
+          </div>
+
+          <div class="flex flex-col items-center text-center space-y-2">
+            <div
+              class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+            >
+              ⭐
+            </div>
+            <h3 class="font-semibold">Engaging activities</h3>
+            <p class="text-red-100">
+              Clubs, competitions and projects that build confidence and
+              leadership.
+            </p>
+          </div>
+
+          <div class="flex flex-col items-center text-center space-y-2">
+            <div
+              class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+            >
+              🌱
+            </div>
+            <h3 class="font-semibold">Conducive environment</h3>
+            <p class="text-red-100">
+              A disciplined, caring atmosphere where students feel safe and
+              supported.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA / JOIN SECTION -->
+      <section class="mb-4 grid md:grid-cols-2 gap-8 items-center fade-in-delay-3">
+        <div
+          class="overflow-hidden rounded-xl shadow-lg bg-white border border-slate-100"
+        >
+          <img
+            src="img/cta-students.jpg"
+            alt="New Day College students"
+            class="w-full h-72 object-cover hover:scale-105 transition-transform duration-700"
+          />
+        </div>
+
+        <div>
+          <h2 class="text-2xl md:text-3xl font-semibold text-slate-900 mb-3">
+            Be part of our success story
+          </h2>
+          <p class="text-gray-700 leading-relaxed mb-3">
+            Every year, New Day College sends out a new set of confident,
+            well-prepared students ready to thrive in higher institutions and
+            in life. Your child can be one of them.
+          </p>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            Take the next step by starting the admission process today. Our team
+            is ready to guide you through every stage and answer your
+            questions.
+          </p>
+
+          <a
+            href="admissions.html"
+            class="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-blue-900 text-white text-sm font-semibold shadow-md hover:bg-blue-800 transition"
+          >
+            Start admissions process
+          </a>
+        </div>
+      </section>
+    </main>
+
+    
+
+
+      <!-- Academics Section -->
+      <a href="/academics.html" class="block">
+        <section
+          class="  relative  max-w-6xl mx-auto h-64 flex items-center justify-center text-center overflow-hidden rounded-md shadow-md"
+        >
+          <!-- Background Image -->
+          <img
+            src="/images/your-academic-banner.jpg"
+            alt="Academics"
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+
+          <!-- Dark Overlay -->
+          <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+
+          <!-- Text -->
+          <h2 class="relative text-4xl font-semibold text-white tracking-wide">
+            Academic
+          </h2>
+        </section>
+      </a>
+
+      <!-- Facilities Section -->
+
+      <section id="facilities" class="py-12 bg-gray-50">
+        <div class="max-w-6xl mx-auto text-center">
+          <h2 class="text-3xl font-bold text-blue-900 mb-2">Our Facilities</h2>
+          <p class="text-center text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+            New Day College is equipped with modern academic and
+            extra-curricular facilities that support effective learning and
+            personal development.
+          </p>
+
+          <!-- Facilities Grid -->
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-4"
+          >
+            <!-- Facility Card -->
+            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+              <img
+                src="img/sciencelab.jpg"
+                class="w-full h-48 object-cover transform group-hover:scale-110 transition duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500"
+              >
+                <h3 class="text-white text-lg font-semibold tracking-wide">
+                  Science Lab
+                </h3>
+              </div>
+            </div>
+
+            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+              <img
+                src="img/library.webp"
+                class="w-full h-48 object-cover transform group-hover:scale-110 transition duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500"
+              >
+                <h3 class="text-white text-lg font-semibold tracking-wide">
+                  Library
+                </h3>
+              </div>
+            </div>
+
+            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+              <img
+                src="img/computerlab.webp"
+                class="w-full h-48 object-cover transform group-hover:scale-110 transition duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500"
+              >
+                <h3 class="text-white text-lg font-semibold tracking-wide">
+                  Computer Lab
+                </h3>
+              </div>
+            </div>
+
+            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+              <img
+                src="img/schoolbus.jpg"
+                class="w-full h-48 object-cover transform group-hover:scale-110 transition duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500"
+              >
+                <h3 class="text-white text-lg font-semibold tracking-wide">
+                  School Transport
+                </h3>
+              </div>
+            </div>
+
+            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+              <img
+                src="img/healthcare.webp"
+                class="w-full h-48 object-cover transform group-hover:scale-110 transition duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500"
+              >
+                <h3 class="text-white text-lg font-semibold tracking-wide">
+                  Health Care
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- contact us and location -->
+      <section id="contact" class="bg-gray-50 py-12">
+        <div class="max-w-6xl mx-auto px-4">
+          <!-- Section Title -->
+          <section
+            class="max-w-5xl mx-auto px-4 py-10 border-t border-teal-600"
+          >
+            <h2
+              class="text-center text-3xl font-semibold text-teal-700 uppercase tracking-wider mb-2"
+            >
+              Contact Us
+            </h2>
+
+            <p class="text-center text-gray-700 max-w-3xl mb-8 mx-auto leading-relaxed">
+              For admission procedures & further enquiries, please contact us or
+              simply fill the form below. Our representative will respond to you
+              shortly.
+            </p>
+          </section>
+
+          <!-- Main Layout: Form + Contact Details -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Enquiry Form -->
+            <div class="bg-white p-6 rounded shadow-md">
+              <h3 class="text-xl font-semibold text-gray-700 mb-4 uppercase">
+                Enquiry Form
+              </h3>
+              <form class="space-y-4">
+                <div>
+                  <label class="block mb-1 font-medium text-gray-700"
+                    >Name <span class="text-red-500">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label class="block mb-1 font-medium text-gray-700"
+                    >Email <span class="text-red-500">*</span></label
+                  >
+                  <input
+                    type="email"
+                    class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
+                    placeholder="example@email.com"
+                  />
+                </div>
+                <div>
+                  <label class="block mb-1 font-medium text-gray-700"
+                    >Phone Number</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
+                    placeholder="080..."
+                  />
+                </div>
+                <div>
+                  <label class="block mb-1 font-medium text-gray-700"
+                    >Message <span class="text-red-500">*</span></label
+                  >
+                  <textarea
+                    rows="4"
+                    class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
+                    placeholder="Write your message..."
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800 transition duration-200"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+
+            <!-- Contact Details + Map -->
+            <div class="bg-white p-6 rounded shadow-md">
+              <h3 class="text-xl font-semibold text-gray-700 mb-4 uppercase">
+                Contact Details
+              </h3>
+
+              <div class="w-full h-64 mb-4 rounded overflow-hidden">
+                <iframe
+                  src="https://maps.google.com/maps?q=5%20Ayodele%20Awodeji%20St,%20Ikosi%20Ketu,%20Lagos&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  class="w-full h-full"
+                  frameborder="0"
+                  allowfullscreen=""
+                  aria-hidden="false"
+                  tabindex="0"
+                >
+                </iframe>
+              </div>
+
+              <p class="text-gray-700 mb-2">
+                <strong>Address:</strong><br />
+                5 Ayodele Awodeji Street, Ikosi Ketu, Lagos 105102, Nigeria.
+              </p>
+
+              <p class="text-gray-700 mb-2">
+                <strong>Phone:</strong><br />
+                08012345678, 08123456789
+              </p>
+
+              <p class="text-gray-700">
+                <strong>Email:</strong><br />
+                info@newdaycollege.sch.ng
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+   <footer class="bg-[#14552A] max-w-6xl mx-auto text-white py-10 mt-10">
+  <div class=" px-6 grid md:grid-cols-3 gap-8 items-start">
+
+    <!-- Logo + Name -->
+    <div class="flex items-start gap-4">
+      <img src="img/newdaylogo.png" alt="New Day College Logo" class="w-16 h-16 object-contain" />
+      <div>
+        <h2 class="text-xl font-bold leading-tight">New Day College</h2>
+        <p class="text-sm text-gray-200">
+          Ikosi Ketu, Lagos, Nigeria
+        </p>
+      </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div>
+      <h3 class="font-semibold text-lg mb-2">Contact Information</h3>
+      <p class="text-sm leading-relaxed text-gray-100">
+        5 Ayodele Awodeji Street,<br />
+        Ikosi Ketu, Lagos 105102,<br />
+        Lagos State, Nigeria.
+      </p>
+      <p class="mt-3 text-sm text-gray-100">
+        Phone: <a href="tel:+2348012345678" class="hover:underline">+234 80 1234 5678</a> <br />
+        Email: 
+        <a href="mailto:info@newdaycollege.sch.ng" class="hover:underline">
+          info@newdaycollege.sch.ng
+        </a>
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="font-semibold text-lg mb-2">Quick Links</h3>
+      <ul class="space-y-1 text-sm text-gray-100">
+        <li><a href="index.html#about" class="hover:underline">About Us</a></li>
+        <li><a href="academics.html" class="hover:underline">Academics</a></li>
+        <li><a href="admissions.html" class="hover:underline">Admissions</a></li>
+        <li><a href="index.html#contact" class="hover:underline">Contact Us</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Bottom line -->
+  <div class="mt-10 border-t border-white/20 pt-4 text-center text-xs text-gray-200">
+    © 2025 New Day College. All rights reserved.
+  </div>
+</footer>
+
+  </body>
+</html>
