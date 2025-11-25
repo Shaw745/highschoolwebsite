@@ -7,7 +7,74 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
   </head>
-  <body class="bg-[#F9F4E3] text-gray-800">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  /* Global smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Active nav link for scroll spy */
+  .nav-active {
+    color: #1d4ed8; /* blue-700 */
+    border-bottom: 2px solid #1d4ed8;
+  }
+
+  /* Fade-in on scroll */
+  [data-animate="fade"] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  [data-animate="fade"].visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const backToTopBtn = document.getElementById("backToTop");
+
+    if (backToTopBtn) {
+      // Show button after some scroll
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+          backToTopBtn.classList.remove("opacity-0", "pointer-events-none");
+          backToTopBtn.classList.add("opacity-100");
+        } else {
+          backToTopBtn.classList.add("opacity-0", "pointer-events-none");
+          backToTopBtn.classList.remove("opacity-100");
+        }
+      });
+
+      // Scroll to top when clicked
+      backToTopBtn.addEventListener("click", () => {
+        // Already have smooth scroll on html, so this is enough:
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+    }
+  });
+</script>
+<!-- Back to Top Button -->
+<button
+  id="backToTop"
+  class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full
+         bg-blue-700 text-white shadow-lg flex items-center justify-center
+         text-xl font-bold cursor-pointer
+         opacity-0 pointer-events-none
+         transition-opacity duration-300 hover:bg-blue-800"
+  aria-label="Back to top"
+>
+  ↑
+</button>
+
+
+  <body class="bg-[#F9F4E3] text-gray-800" id="top">
     <!-- Profile Header -->
    <!-- TOP HEADER: Logo + Hamburger Only -->
 
@@ -117,16 +184,7 @@
 </style>
 
 <!-- Tiny JS for toggling the mobile menu -->
-<script>
-  const navToggle = document.getElementById("nav-toggle");
-  const mobileMenu = document.getElementById("mobile-menu");
 
-  navToggle.addEventListener("click", () => {
-    const isOpen = navToggle.classList.toggle("open");
-    mobileMenu.classList.toggle("max-h-96", isOpen);
-    mobileMenu.classList.toggle("max-h-0", !isOpen);
-  });
-</script>
 
 <style>
   /* Typewriter text */
@@ -151,36 +209,148 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const target = document.getElementById("hero-typed");
-    const text =
-      "Integrity and Excellence, Discipline and Leadership";
-    const speed = 60; // typing speed in ms per character
+  document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector("header");
+    const navToggle = document.getElementById("nav-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
 
-    let index = 0;
-
-    function type() {
-      if (!target) return;
-      if (index <= text.length) {
-        target.textContent = text.slice(0, index);
-        index++;
-        setTimeout(type, speed);
-      } else {
-        // after finishing, keep only the blinking caret effect
-        target.classList.add("caret");
-      }
+    /* ========== Mobile nav toggle ========== */
+    if (navToggle && mobileMenu) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = navToggle.classList.toggle("open");
+        mobileMenu.classList.toggle("max-h-96", isOpen);
+        mobileMenu.classList.toggle("max-h-0", !isOpen);
+      });
     }
 
-    type();
+    /* ========== Typewriter hero text ========== */
+    const typedTarget = document.getElementById("hero-typed");
+    const typedText = "Integrity and Excellence, Discipline and Leadership";
+    const speed = 60;
+    let index = 0;
+
+    function typeHero() {
+      if (!typedTarget) return;
+      if (index <= typedText.length) {
+        typedTarget.textContent = typedText.slice(0, index);
+        index++;
+        setTimeout(typeHero, speed);
+      } else {
+        typedTarget.classList.add("caret");
+      }
+    }
+    typeHero();
+
+    /* ========== Smooth scroll with sticky header offset ========== */
+    const headerOffset = header ? header.offsetHeight + 8 : 80;
+
+    function smoothScrollTo(targetId) {
+      const section = document.getElementById(targetId);
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const scrollTop = window.scrollY || window.pageYOffset;
+      const targetY = rect.top + scrollTop - headerOffset;
+
+      window.scrollTo({
+        top: targetY,
+        behavior: "smooth",
+      });
+    }
+
+    // Links like "#about" and "index.html#about"
+    const scrollLinks = document.querySelectorAll(
+      'a[href^="#"], a[href^="index.html#"]'
+    );
+
+    scrollLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
+        if (!href) return;
+
+        // only intercept in-page anchors
+        const hashIndex = href.indexOf("#");
+        if (hashIndex === -1) return;
+
+        const targetId = href.slice(hashIndex + 1);
+        if (!targetId) return;
+
+        // prevent default for in-page scroll
+        e.preventDefault();
+        smoothScrollTo(targetId);
+
+        // Close mobile menu after click
+        if (mobileMenu && navToggle && window.innerWidth < 768) {
+          mobileMenu.classList.remove("max-h-96");
+          mobileMenu.classList.add("max-h-0");
+          navToggle.classList.remove("open");
+        }
+      });
+    });
+
+    /* ========== Scroll spy (active nav link) ========== */
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(
+      'header nav a, footer a[href*="#"]'
+    );
+
+    function updateActiveNav() {
+      const scrollPos = window.scrollY + headerOffset + 60;
+      let currentId = null;
+
+      sections.forEach((section) => {
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        if (scrollPos >= top && scrollPos < bottom) {
+          currentId = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach((link) => {
+        const href = link.getAttribute("href") || "";
+        const hashIndex = href.indexOf("#");
+        let targetId = null;
+        if (hashIndex !== -1) {
+          targetId = href.slice(hashIndex + 1);
+        }
+
+        if (targetId && targetId === currentId) {
+          link.classList.add("nav-active");
+        } else {
+          link.classList.remove("nav-active");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", updateActiveNav);
+    window.addEventListener("resize", updateActiveNav);
+    updateActiveNav();
+
+    /* ========== Fade-in on scroll using IntersectionObserver ========== */
+    const animatedElems = document.querySelectorAll('[data-animate="fade"]');
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.15,
+        }
+      );
+
+      animatedElems.forEach((el) => observer.observe(el));
+    } else {
+      // Fallback: just show them
+      animatedElems.forEach((el) => el.classList.add("visible"));
+    }
   });
 </script>
-
-
-
-
-
-
-
     <!-- Main Profile Content -->
     <main class="max-w-6xl mx-auto p-6 space-y-8">
 

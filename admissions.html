@@ -9,11 +9,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-      /* Fade / slide animations */
+      /* Global smooth scroll */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Simple fade-in animation (you already had this) */
       @keyframes fadeInUp {
         from {
           opacity: 0;
-          transform: translateY(24px);
+          transform: translateY(20px);
         }
         to {
           opacity: 1;
@@ -36,38 +41,88 @@
         animation-delay: 0.3s;
       }
 
-      @keyframes pulseSlow {
-        0% {
-          transform: scale(1);
-          box-shadow: 0 0 0 rgba(37, 99, 235, 0.3);
-        }
-        50% {
-          transform: scale(1.05);
-          box-shadow: 0 0 18px rgba(37, 99, 235, 0.45);
-        }
-        100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 rgba(37, 99, 235, 0.3);
-        }
-      }
-      .animate-pulse-slow {
-        animation: pulseSlow 2.4s infinite ease-in-out;
-      }
-
-      /* Hamburger animation */
-      #nav-toggle.open .hamburger-line:nth-child(1) {
-        transform: translateY(6px) rotate(45deg);
-      }
-      #nav-toggle.open .hamburger-line:nth-child(2) {
+      /* Fade-in on scroll trigger */
+      [data-animate="fade"] {
         opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.7s ease-out, transform 0.7s ease-out;
       }
-      #nav-toggle.open .hamburger-line:nth-child(3) {
-        transform: translateY(-6px) rotate(-45deg);
+      [data-animate="fade"].visible {
+        opacity: 1;
+        transform: translateY(0);
       }
     </style>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Add data-animate="fade" to all section elements
+        document
+          .querySelectorAll("section")
+          .forEach((s) => s.setAttribute("data-animate", "fade"));
+
+        // IntersectionObserver to toggle the .visible class when sections enter the viewport
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+
+        document
+          .querySelectorAll('[data-animate="fade"]')
+          .forEach((el) => observer.observe(el));
+      });
+    </script>
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const backToTopBtn = document.getElementById("backToTop");
+
+    if (backToTopBtn) {
+      // Show button after some scroll
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+          backToTopBtn.classList.remove("opacity-0", "pointer-events-none");
+          backToTopBtn.classList.add("opacity-100");
+        } else {
+          backToTopBtn.classList.add("opacity-0", "pointer-events-none");
+          backToTopBtn.classList.remove("opacity-100");
+        }
+      });
+
+      // Scroll to top when clicked
+      backToTopBtn.addEventListener("click", () => {
+        // Already have smooth scroll on html, so this is enough:
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+    }
+  });
+</script>
+
   </head>
 
-  <body class="bg-slate-50 text-gray-900">
+  <!-- Back to Top Button -->
+<button
+  id="backToTop"
+  class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full
+         bg-blue-700 text-white shadow-lg flex items-center justify-center
+         text-xl font-bold cursor-pointer
+         opacity-0 pointer-events-none
+         transition-opacity duration-300 hover:bg-blue-800"
+  aria-label="Back to top"
+>
+  ↑
+</button>
+
+
+  <body class="bg-slate-50 text-gray-900" id="top">
     <!-- ====== TOP HEADER (same style as index) ====== -->
     <header class="bg-white shadow-md sticky top-0 z-50">
       <div class="max-w-6xl mx-auto px-4 py-4">
@@ -478,17 +533,46 @@
 
     <!-- Mobile nav JS -->
     <script>
-      const navToggle = document.getElementById("nav-toggle");
-      const mobileMenu = document.getElementById("mobile-menu");
+      document.addEventListener("DOMContentLoaded", () => {
+        const navToggle = document.getElementById("nav-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
 
-      navToggle.addEventListener("click", () => {
-        const isOpen = navToggle.classList.toggle("open");
-        if (isOpen) {
-          mobileMenu.classList.remove("max-h-0");
-          mobileMenu.classList.add("max-h-96");
+        /* Mobile nav toggle */
+        if (navToggle && mobileMenu) {
+          navToggle.addEventListener("click", () => {
+            const isOpen = navToggle.classList.toggle("open");
+            if (isOpen) {
+              mobileMenu.classList.remove("max-h-0");
+              mobileMenu.classList.add("max-h-96");
+            } else {
+              mobileMenu.classList.remove("max-h-96");
+              mobileMenu.classList.add("max-h-0");
+            }
+          });
+        }
+
+        /* Fade-in on scroll using IntersectionObserver */
+        const animatedElems = document.querySelectorAll(
+          '[data-animate="fade"]'
+        );
+
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.15 }
+          );
+
+          animatedElems.forEach((el) => observer.observe(el));
         } else {
-          mobileMenu.classList.remove("max-h-96");
-          mobileMenu.classList.add("max-h-0");
+          // Fallback for very old browsers
+          animatedElems.forEach((el) => el.classList.add("visible"));
         }
       });
     </script>
