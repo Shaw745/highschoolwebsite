@@ -107,6 +107,34 @@
       }
     });
   </script>
+  <script>
+  const links = document.querySelectorAll("a[href]");
+
+  links.forEach(link => {
+    link.addEventListener("click", (e) => {
+      const url = link.getAttribute("href");
+
+      // Ignore anchors & external links
+      if (url.startsWith("#") || url.startsWith("http")) return;
+
+      e.preventDefault();
+      document.body.style.opacity = "0";
+      document.body.style.transition = "opacity 0.3s ease";
+      setTimeout(() => window.location.href = url, 300);
+    });
+  });
+</script>
+<script>
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("page-loader");
+    if (loader) {
+      loader.style.opacity = "0";
+      loader.style.transition = "opacity 0.4s ease";
+      setTimeout(() => loader.style.display = "none", 400);
+    }
+  });
+</script>
+
 
   <!-- Back to Top Button -->
   <button
@@ -118,6 +146,13 @@
   </button>
 
   <body class="bg-slate-50 text-gray-900" id="top">
+
+
+    <!-- Page Loader -->
+<div id="page-loader" class="fixed inset-0 bg-white flex items-center justify-center z-[9999]">
+  <div class="animate-spin h-10 w-10 border-4 border-blue-700 border-t-transparent rounded-full"></div>
+</div>
+
     <!-- ====== TOP HEADER (same as other pages) ====== -->
     <header class="bg-white shadow-md sticky top-0 z-50" data-animate="fade">
       <div class="max-w-6xl mx-auto px-4 py-4">
